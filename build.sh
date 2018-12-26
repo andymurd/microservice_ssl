@@ -32,7 +32,11 @@ INTERMEDIATE_CA_DAYS=3650                # 10 years
 
 ####################################################################
 
-. ./lib/build_subject.sh
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+####################################################################
+
+. $SCRIPT_DIR/lib/build_subject.sh
 
 ####################################################################
 # Create the CA directories
@@ -41,10 +45,10 @@ mkdir -p ca/root
 mkdir -p ca/intermediate
 
 # Create the root CA config file
-cat etc/root.openssl.conf etc/base.openssl.conf | sed -e s@__DIR__@$PWD@ > ca/root/openssl.conf
+cat $SCRIPT_DIR/etc/root.openssl.conf $SCRIPT_DIR/etc/base.openssl.conf | sed -e s@__DIR__@$PWD@ > ca/root/openssl.conf
 
 # Create the intermediate CA config file
-cat etc/intermediate.openssl.conf etc/base.openssl.conf | sed -e s@__DIR__@$PWD@ > ca/intermediate/openssl.conf
+cat $SCRIPT_DIR/etc/intermediate.openssl.conf $SCRIPT_DIR/etc/base.openssl.conf | sed -e s@__DIR__@$PWD@ > ca/intermediate/openssl.conf
 
 cd ca
 
