@@ -42,7 +42,7 @@ openssl genrsa -aes256 -out client.key.pem 2048
 You might want to remove the passphrase from this key, or alternatively you can supply the passphrase via `CLIENT_KEY_PASSWORD` environment variable. This command will remove the passphrase from your key:
 
 ```
-
+openssl rsa -in ./client.key.pem -out ./client-nopass.key.pem
 ```
 
 Generate the certificate by executing `generate_client_cert.sh`. Pass your key filename as parameter.
@@ -60,3 +60,12 @@ You may override the following variables to customise your certificate:
 * `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
 
 The generated certificate can be found in the `ca/intermediate/newcerts/` directory.
+
+## Usage - Revoke a Certificate
+
+Revoke a certificate by executing `generate_client_cert.sh`. Pass your key filename as parameter.
+
+You may override the following variables to customise your certificate:
+
+* `OUTPUT_DIR` The directory in which the `ca` output directory will be created
+* `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
