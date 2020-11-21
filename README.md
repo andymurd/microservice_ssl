@@ -30,6 +30,9 @@ You may override the following variables to customise your CA:
 * `EMAIL_ADDRESS` The email address that should be used to contact you with questions about your CA
 * `ROOT_KEY_PASSWORD` You can set this instead of entering the passphrase every time your root key is used
 * `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
+* `ROOT_PKI_NAME` This will form part of the common name of root certificate. 
+INTERMEDIATE_PKI_NAME=${INTERMEDIATE_PKI_NAME:-$PKI_NAME}
+
 
 ## Usage - Generate a Certificate
 
@@ -50,6 +53,7 @@ Generate the certificate by executing `generate_client_cert.sh`. Pass your key f
 You may override the following variables to customise your certificate:
 
 * `ORGANISATION_DOMAIN` The domain name of your organisation, e.g. `example.com`
+* `ORGANISATION_UNIT` The (optional) name of your organisation unit, e.g. `Database`
 * `OUTPUT_DIR` The directory in which the `ca` output directory will be created
 * `COUNTRY_CODE` The two-letter country code in which your orrganisation resides, e.g. `US`
 * `STATE_NAME` The name of the state in which your orrganisation resides, e.g. `WA`

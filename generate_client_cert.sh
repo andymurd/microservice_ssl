@@ -22,13 +22,13 @@ ORGANISATION_DOMAIN=${ORGANISATION_DOMAIN:-client.example.com}
 OUTPUT_DIR=${OUTPUT_DIR:-.}
 
 # These values are used to calculate the certificate subjects
-COUNTRY_CODE=${COUNTRY_CODE:-AU}                          # Country Name (2 letter code)
-STATE_NAME=${STATE_NAME:-}                                # State or Province Name
-LOCALITY_NAME=${LOCALITY_NAME:-}                          # Locality Name
-ORGANISATION_NAME="$ORGANISATION_DOMAIN"                  # Organization Name
-ORGANISATION_UNIT=""                                      # Organizational Unit Name
-COMMON_NAME=${COMMON_NAME:-$ORGANISATION_DOMAIN}          # Common Name
-EMAIL_ADDRESS=${EMAIL_ADDRESS:-root@$ORGANISATION_DOMAIN} # Email Address
+COUNTRY_CODE=${COUNTRY_CODE:-AU}                            # Country Name (2 letter code)
+STATE_NAME="${STATE_NAME:-}"                                # State or Province Name
+LOCALITY_NAME="${LOCALITY_NAME:-}"                          # Locality Name
+ORGANISATION_NAME="$ORGANISATION_DOMAIN"                    # Organization Name
+ORGANISATION_UNIT="${ORGANISATION_UNIT:-}"                  # Organizational Unit Name
+COMMON_NAME="${COMMON_NAME:-$ORGANISATION_DOMAIN}"          # Common Name
+EMAIL_ADDRESS="${EMAIL_ADDRESS:-root@$ORGANISATION_DOMAIN}" # Email Address
 
 PRIVATE_KEY="$1"                          # Filename passed via the command line
 

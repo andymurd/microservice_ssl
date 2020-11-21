@@ -15,17 +15,19 @@ set -e
 #
 ORGANISATION_DOMAIN=${ORGANISATION_DOMAIN:-example.com}
 PKI_NAME="trust.$ORGANISATION_DOMAIN"
+ROOT_PKI_NAME=${ROOT_PKI_NAME:-$PKI_NAME}
+INTERMEDIATE_PKI_NAME=${INTERMEDIATE_PKI_NAME:-$PKI_NAME}
 OUTPUT_DIR=${OUTPUT_DIR:-.}
 
 # These values are used to calculate the certificate subjects
-COUNTRY_CODE=${COUNTRY_CODE:-AU}                         # Country Name (2 letter code)
+COUNTRY_CODE=${COUNTRY_CODE:-AU}                          # Country Name (2 letter code)
 STATE_NAME=${STATE_NAME:-}                                # State or Province Name
 LOCALITY_NAME=${LOCALITY_NAME:-}                          # Locality Name
 ORGANISATION_NAME="$ORGANISATION_DOMAIN"                  # Organization Name
 ROOT_ORGANISATION_UNIT="Trust Root CA"                    # Organizational Unit Name for root cert
 INTERMEDIATE_ORGANISATION_UNIT="Trust CA"                 # Organizational Unit Name for intermediate cert
-ROOT_COMMON_NAME="root.$PKI_NAME"                         # Common Name for root cert
-INTERMEDIATE_COMMON_NAME="ca.$PKI_NAME"                   # Common Name for intermediate cert
+ROOT_COMMON_NAME="root.$ROOT_PKI_NAME"                    # Common Name for root cert
+INTERMEDIATE_COMMON_NAME="ca.$INTERMEDIATE_PKI_NAME"      # Common Name for intermediate cert
 EMAIL_ADDRESS=${EMAIL_ADDRESS:-root@$ORGANISATION_DOMAIN} # Email Address
 
 # Determines for how long each cert will be valid
