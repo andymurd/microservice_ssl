@@ -13,13 +13,19 @@ set -e
 #    https://jamielinux.com/docs/openssl-certificate-authority/
 # 
 ####################################################################
+set -e
+set -o errexit
+#set -o nounset
+#set -o pipefail
+set -o xtrace # Uncomment this line for debugging purposes
+
 # Configuration
 #
 # Change any item in this section, but really only
 # the ORGANISATION_DOMAIN is mandatory
 #
 ORGANISATION_DOMAIN=${ORGANISATION_DOMAIN:-client.example.com}
-OUTPUT_DIR=${OUTPUT_DIR:-.}
+OUTPUT_DIR="${OUTPUT_DIR:-.}"
 
 # These values are used to calculate the certificate subjects
 COUNTRY_CODE=${COUNTRY_CODE:-AU}                            # Country Name (2 letter code)
@@ -31,6 +37,7 @@ COMMON_NAME="${COMMON_NAME:-$ORGANISATION_DOMAIN}"          # Common Name
 EMAIL_ADDRESS="${EMAIL_ADDRESS:-root@$ORGANISATION_DOMAIN}" # Email Address
 
 PRIVATE_KEY="$1"                          # Filename passed via the command line
+RECREATE="$2"
 
 if [ ! -z "$INTERMEDIATE_KEY_PASSWORD" ]; then
       echo "Passphrase for intermediate key supplied"
@@ -62,11 +69,34 @@ if [ ! -f "$PRIVATE_KEY" ]; then
 fi
 openssl rsa -in "$PRIVATE_KEY" -check
 
-# Has the cert been issued before?
-EXISTS=`grep "CN=$COMMON_NAME" $OUTPUT_DIR/ca/intermediate/index.txt`
-if [ ! -z "$EXISTS" ]; then
-      echo "Certificate has already been issued with that common name, you may need to revoke that first"
+# Does the output directory exist?
+if [ ! -d "$OUTPUT_DIR" ]; then
+      echo "Output directory $OUTPUT_DIR does not exist"
       exit 1
+fi
+
+# Does the output directory contain an initialised CA?
+if [ ! -d "$OUTPUT_DIR/ca/root" ]; then
+      echo "Output directory $OUTPUT_DIR/ca/root does not exist"
+      exit 1
+fi
+if [ ! -d "$OUTPUT_DIR/ca/intermediate" ]; then
+      echo "Output directory $OUTPUT_DIR/ca/intermediate does not exist"
+      exit 1
+fi
+
+# Has the cert been issued before?
+EXISTS=`grep "CN=$COMMON_NAME" $OUTPUT_DIR/ca/intermediate/index.txt | grep '^V'`||true
+if [ ! -z "$EXISTS" ]; then
+      if [ "$RECREATE" != "true" ]; then
+            echo "Certificate has already been issued with that common name, you may need to revoke that first"
+            exit 1
+      else
+            echo "Certificate has already been issued with that common name, revoking automatically"
+            INDEX=`grep "CN=$COMMON_NAME" $OUTPUT_DIR/ca/intermediate/index.txt | grep '^V' | tr -s '\t\t' '\t' | cut -f 3`
+            echo $SCRIPT_DIR/revoke_client_cert.sh $OUTPUT_DIR/ca/intermediate/newcerts/$INDEX.pem
+            $SCRIPT_DIR/revoke_client_cert.sh $OUTPUT_DIR/ca/intermediate/newcerts/$INDEX.pem
+      fi
 fi
 
 # Generate the CSR
@@ -86,8 +116,8 @@ yes | openssl ca -config $OUTPUT_DIR/ca/intermediate/openssl.conf \
       -extensions usr_cert -notext -md sha256 \
       -in "$CSR_FILENAME" \
       $INTERMEDIATE_PASSIN \
-      -out "$CERT_FILENAME" || rm -f "$CERT_FILENAME"
-chmod 444 "$CERT_FILENAME"
+      -out "$CERT_FILENAME" # || rm -f "$CERT_FILENAME"
+chmod 644 "$CERT_FILENAME"
 
 # Verify the certificate
 openssl x509 -noout -text -in "$CERT_FILENAME"
