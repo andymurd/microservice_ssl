@@ -35,6 +35,7 @@ ORGANISATION_NAME="$ORGANISATION_DOMAIN"                    # Organization Name
 ORGANISATION_UNIT="${ORGANISATION_UNIT:-}"                  # Organizational Unit Name
 COMMON_NAME="${COMMON_NAME:-$ORGANISATION_DOMAIN}"          # Common Name
 EMAIL_ADDRESS="${EMAIL_ADDRESS:-root@$ORGANISATION_DOMAIN}" # Email Address
+CERTIFICATE_TYPE="${CERTIFICATE_TYPE:-usr_cert}"
 
 PRIVATE_KEY="$1"                          # Filename passed via the command line
 RECREATE="$2"
@@ -113,7 +114,7 @@ openssl req -config $OUTPUT_DIR/ca/intermediate/openssl.conf \
 # Sign the cert with the intermediate CA
 CERT_FILENAME="$OUTPUT_DIR/ca/intermediate/newcerts/$ORGANISATION_DOMAIN-$DATE.cert.pem"
 yes | openssl ca -config $OUTPUT_DIR/ca/intermediate/openssl.conf \
-      -extensions usr_cert -notext -md sha256 \
+      -extensions $CERTIFICATE_TYPE -notext -md sha256 \
       -in "$CSR_FILENAME" \
       $INTERMEDIATE_PASSIN \
       -out "$CERT_FILENAME" # || rm -f "$CERT_FILENAME"
