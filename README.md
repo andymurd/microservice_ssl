@@ -23,7 +23,7 @@ keys and certificates.
 You may override the following variables to customise your CA:
 
 * `ORGANISATION_DOMAIN` The domain name of your organisation, e.g. `example.com`
-* `OUTPUT_DIR` The directory in which the `ca` output directory will be created
+* `OUTPUT_DIR` The directory in which the `ca` output directory will be created - note: must be absolute
 * `COUNTRY_CODE` The two-letter country code in which your orrganisation resides, e.g. `US`
 * `STATE_NAME` The name of the state in which your orrganisation resides, e.g. `WA`
 * `LOCALITY_NAME` The name of the city in which your orrganisation resides, e.g. `Perth`
@@ -33,18 +33,17 @@ You may override the following variables to customise your CA:
 * `ROOT_PKI_NAME` This will form part of the common name of root certificate. 
 INTERMEDIATE_PKI_NAME=${INTERMEDIATE_PKI_NAME:-$PKI_NAME}
 
-
 ## Usage - Generate a Certificate
 
 Generate a key:
 
-```
+```bash
 openssl genrsa -aes256 -out client.key.pem 2048
 ```
 
 You might want to remove the passphrase from this key, or alternatively you can supply the passphrase via `CLIENT_KEY_PASSWORD` environment variable. This command will remove the passphrase from your key:
 
-```
+```bash
 openssl rsa -in ./client.key.pem -out ./client-nopass.key.pem
 ```
 
@@ -54,7 +53,7 @@ You may override the following variables to customise your certificate:
 
 * `ORGANISATION_DOMAIN` The domain name of your organisation, e.g. `example.com`
 * `ORGANISATION_UNIT` The (optional) name of your organisation unit, e.g. `Database`
-* `OUTPUT_DIR` The directory in which the `ca` output directory will be created
+* `OUTPUT_DIR` The directory in which the `ca` output directory will be created - note: must be absolute
 * `COUNTRY_CODE` The two-letter country code in which your orrganisation resides, e.g. `US`
 * `STATE_NAME` The name of the state in which your orrganisation resides, e.g. `WA`
 * `LOCALITY_NAME` The name of the city in which your orrganisation resides, e.g. `Perth`
@@ -62,6 +61,7 @@ You may override the following variables to customise your certificate:
 * `COMMON_NAME` Allows you to customise the commmon name of the certificate
 * `CLIENT_KEY_PASSWORD` You can set this instead of entering the passphrase every time your key is used
 * `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
+* `CERTIFICATE_TYPE` You can set this to `usr_cert` or `server_cert` subject to your needs - defaults to `usr_cert`
 
 The generated certificate can be found in the `ca/intermediate/newcerts/` directory.
 
