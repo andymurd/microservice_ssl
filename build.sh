@@ -17,7 +17,7 @@ ORGANISATION_DOMAIN=${ORGANISATION_DOMAIN:-example.com}
 PKI_NAME="trust.$ORGANISATION_DOMAIN"
 ROOT_PKI_NAME=${ROOT_PKI_NAME:-$PKI_NAME}
 INTERMEDIATE_PKI_NAME=${INTERMEDIATE_PKI_NAME:-$PKI_NAME}
-OUTPUT_DIR=${OUTPUT_DIR:-.}
+OUTPUT_DIR=${OUTPUT_DIR:-$PWD}
 
 # These values are used to calculate the certificate subjects
 COUNTRY_CODE=${COUNTRY_CODE:-AU}                          # Country Name (2 letter code)
