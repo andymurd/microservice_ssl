@@ -61,7 +61,7 @@ You may override the following variables to customise your certificate:
 * `COMMON_NAME` Allows you to customise the commmon name of the certificate
 * `CLIENT_KEY_PASSWORD` You can set this instead of entering the passphrase every time your key is used
 * `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
-* `CERTIFICATE_TYPE` You can set this to `usr_cert` or `server_cert` subject to your needs - defaults to `usr_cert`
+* `CERTIFICATE_TYPE` You can set this to `usr_cert` or `server_cert` subject to your needs - defaults to `server_cert`
 
 The generated certificate can be found in the `ca/intermediate/newcerts/` directory.
 
