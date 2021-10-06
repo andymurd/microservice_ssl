@@ -25,7 +25,7 @@ set -o xtrace # Uncomment this line for debugging purposes
 # the ORGANISATION_DOMAIN is mandatory
 #
 ORGANISATION_DOMAIN=${ORGANISATION_DOMAIN:-client.example.com}
-OUTPUT_DIR="${OUTPUT_DIR:-$PWD}"
+OUTPUT_DIR="$( readlink -f ${OUTPUT_DIR:-.})"
 
 # These values are used to calculate the certificate subjects
 COUNTRY_CODE=${COUNTRY_CODE:-AU}                            # Country Name (2 letter code)

@@ -23,7 +23,7 @@ keys and certificates.
 You may override the following variables to customise your CA:
 
 * `ORGANISATION_DOMAIN` The domain name of your organisation, e.g. `example.com`
-* `OUTPUT_DIR` The directory in which the `ca` output directory will be created - note: must be absolute
+* `OUTPUT_DIR` The directory in which the `ca` output directory will be created
 * `COUNTRY_CODE` The two-letter country code in which your orrganisation resides, e.g. `US`
 * `STATE_NAME` The name of the state in which your orrganisation resides, e.g. `WA`
 * `LOCALITY_NAME` The name of the city in which your orrganisation resides, e.g. `Perth`
@@ -53,7 +53,7 @@ You may override the following variables to customise your certificate:
 
 * `ORGANISATION_DOMAIN` The domain name of your organisation, e.g. `example.com`
 * `ORGANISATION_UNIT` The (optional) name of your organisation unit, e.g. `Database`
-* `OUTPUT_DIR` The directory in which the `ca` output directory will be created - note: must be absolute
+* `OUTPUT_DIR` The directory in which the `ca` output directory will be created
 * `COUNTRY_CODE` The two-letter country code in which your orrganisation resides, e.g. `US`
 * `STATE_NAME` The name of the state in which your orrganisation resides, e.g. `WA`
 * `LOCALITY_NAME` The name of the city in which your orrganisation resides, e.g. `Perth`
