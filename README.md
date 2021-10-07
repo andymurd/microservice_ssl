@@ -33,6 +33,9 @@ You may override the following variables to customise your CA:
 * `ROOT_PKI_NAME` This will form part of the common name of root certificate. 
 INTERMEDIATE_PKI_NAME=${INTERMEDIATE_PKI_NAME:-$PKI_NAME}
 
+You can use the `ca-config.sh` script to provide an easy way to populate the required values - simply run `source ca-config.sh` in the shell
+you are using to run the other scripts.
+
 ## Usage - Generate a Certificate
 
 Generate a key:
@@ -61,7 +64,7 @@ You may override the following variables to customise your certificate:
 * `COMMON_NAME` Allows you to customise the commmon name of the certificate
 * `CLIENT_KEY_PASSWORD` You can set this instead of entering the passphrase every time your key is used
 * `INTERMEDIATE_KEY_PASSWORD` You can set this instead of entering the passphrase every time your intermediate key is used
-* `CERTIFICATE_TYPE` You can set this to `usr_cert` or `server_cert` subject to your needs - defaults to `server_cert`
+* `CERTIFICATE_TYPE` You can set this to `client_cert` or `server_cert` subject to your needs - defaults to `client_cert`
 
 The generated certificate can be found in the `ca/intermediate/newcerts/` directory.
 

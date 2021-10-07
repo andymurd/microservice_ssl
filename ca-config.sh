@@ -1,0 +1,8 @@
+
+export ORGANISATION_DOMAIN=""
+export ORGANISATION_UNIT=""
+export COUNTRY_CODE=""
+export STATE_NAME=""
+export EMAIL_ADDRESS=""
+export LOCALITY_NAME=""
+
